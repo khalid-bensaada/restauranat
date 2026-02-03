@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add New Restaurant Panel - RestoManage</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1392ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101a22",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .slide-over-shadow {
+            box-shadow: -10px 0 15px -3px rgba(0, 0, 0, 0.1), -4px 0 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen relative overflow-hidden">
+    <!-- Dashboard Content (Dimmed) -->
+    <div class="flex flex-col h-screen opacity-40 pointer-events-none transition-opacity duration-300">
+        <!-- Top Nav Bar -->
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f0f3f4] dark:border-white/10 bg-white dark:bg-background-dark px-10 py-3">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-4 text-[#111518] dark:text-white">
+                    <div class="size-6 text-primary">
+                        <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] font-display">RestoManage</h2>
+                </div>
+                <div class="flex items-center gap-9">
+                    <a class="text-[#111518] dark:text-white text-sm font-medium leading-normal" href="#">Dashboard</a>
+                    <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary"
+                        href="#">Restaurants</a>
+                    <a class="text-[#111518] dark:text-white text-sm font-medium leading-normal" href="#">Staff</a>
+                    <a class="text-[#111518] dark:text-white text-sm font-medium leading-normal" href="#">Analytics</a>
+                </div>
+            </div>
+            <div class="flex flex-1 justify-end gap-8">
+                <label class="flex flex-col min-w-40 !h-10 max-w-64">
+                    <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                        <div
+                            class="text-[#617989] flex border-none bg-[#f0f3f4] dark:bg-white/5 items-center justify-center pl-4 rounded-l-lg border-r-0">
+                            <span class="material-symbols-outlined text-[20px]">search</span>
+                        </div>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 border-none bg-[#f0f3f4] dark:bg-white/5 rounded-r-lg text-base font-normal leading-normal placeholder:text-[#617989] px-4 pl-2"
+                            placeholder="Search locations..." />
+                    </div>
+                </label>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    data-alt="User profile avatar"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrFAQc6iOfE1s7xtSlKUH5Ts2LC2PxwsPgs1PWgyuxnMfY4QDp3ZnwQUfaKoFD7VqG16rFzyRUZcqvKGe-M8G425lC3NplgFIkV3RXQMm2ISIpeE2qNUKso4Uhyk7fwOwrs16CMTGQzpNY7V8tIOAdo_sUe6mhfrSKAGdSlKVyxtFrq1V1pSRhcwl1X-6Xm28UqfS5Wr_FfxzTQv_EqdMqABvqHHPz9pCH8BtpKGDoEorRxM0x786NUR8LgrpoKiYpv0Ml2Kes5lg");'>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto px-40 py-10">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex flex-wrap justify-between gap-3 mb-8">
+                    <div class="flex flex-col gap-2">
+                        <h1
+                            class="text-[#111518] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] font-display">
+                            My Restaurants</h1>
+                        <p class="text-[#617989] text-base font-normal leading-normal">Manage your restaurant portfolio
+                            and add new locations.</p>
+                    </div>
+                    <button
+                        class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold leading-normal">
+                        <span>+ Add Restaurant</span>
+                    </button>
+                </div>
+                <!-- Existing Restaurants Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        class="flex flex-col gap-3 pb-3 bg-white dark:bg-white/5 p-4 rounded-xl border border-[#f0f3f4] dark:border-white/10">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                            data-alt="The Italian Bistro exterior"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDR-G5SLcAbr1ZHJ_OwWo8ZlDIckI2LkpXGqs7o-xg1_CtljdqQvujti8_1vv5hKyevksETlJmJ6m8rTNTE9aZ4qOcU_gNhFmbHclL77CWRopF7huJ0456IyN8MJQbzE7S1X6oS5f2k2CRUOjIHmE_DoTiCzEa_4CIUqUSXRMjWt-x2Y9nfWqsBVjuk29q-2Iy5WvTFmPuN5dEk0DDOzISoymJ12lUYalfyl98M2I-A202LUAc8P3uj6rRy-thTTAgX5cez3ssptqk");'>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="text-[#111518] dark:text-white text-lg font-bold font-display">The Italian Bistro
+                            </p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">location_on</span> New York, NY</p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">groups</span> Capacity: 50</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col gap-3 pb-3 bg-white dark:bg-white/5 p-4 rounded-xl border border-[#f0f3f4] dark:border-white/10">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                            data-alt="Sushi Zen interior"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCiKBDaiPFAPFW2uLCCIrfQ78kHfSiEwchE0kwFHLt0gLFlDvWLVLEs9K3W_RmujVHUSaE0kkwBkZPbPeL0rfLlXB9zWqXGzm6cEsJZQHfSL7IGRXgp3nC2M7jOZmDjHvsSBGfQM2ysRw_Kj50JbodU2hYoIs5SJrFx-SkYvKRy7zn4u90d3PlfTBZMO5OTFpim1kUmbIdGvzV9YR47DMW8MeIVAb_wEM6U6d6b-SqP4PgvimBhbtW6pt0-OrNIWblpeKPR-_6Wm2M");'>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="text-[#111518] dark:text-white text-lg font-bold font-display">Sushi Zen</p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">location_on</span> San Francisco, CA
+                            </p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">groups</span> Capacity: 30</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col gap-3 pb-3 bg-white dark:bg-white/5 p-4 rounded-xl border border-[#f0f3f4] dark:border-white/10">
+                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                            data-alt="Green Garden table setup"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA77oP8_wYW89DJrPEs4waYOqH6hfU91q2U9a3gyTmRi9myu4_gk7mCm6O3-8UpnHu3tM0IftcpxOpBRV5-bFDf3gUoN5x9O0UGDt_u4EZbNUGGS3qtCvVPiwFroZfdrR7yvzb0HO26gRyM8KaJ5TtrKBl_RuaXzjPjEWNzGZXNHx7FsSe0zomUOaIb-O4JcQ3IbihoAUxqDNv_5aW5scAqk7kJrqN-HRpc-VQXjnM0m6sOd-ruaJ-lcJyjAYzxFkMMKXc4izEITpQ");'>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <p class="text-[#111518] dark:text-white text-lg font-bold font-display">Green Garden</p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">location_on</span> Austin, TX</p>
+                            <p class="text-[#617989] text-sm flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[16px]">groups</span> Capacity: 45</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Backdrop Overlay -->
+    <div class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-40"></div>
+    <!-- Add New Restaurant Slide-Over Panel -->
+    <div
+        class="fixed inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark slide-over-shadow z-50 flex flex-col h-full">
+        <!-- Panel Header -->
+        <div class="flex items-center justify-between p-6 border-b border-[#f0f3f4] dark:border-white/10">
+            <h2 class="text-[#111518] dark:text-white text-2xl font-black font-display tracking-tight">Add New
+                Restaurant</h2>
+            <button class="text-[#617989] hover:text-[#111518] dark:hover:text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <!-- Scrollable Form Body -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+            <!-- Restaurant Info -->
+            <div class="space-y-4">
+                <div>
+                    <label
+                        class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Restaurant
+                        Name</label>
+                    <input
+                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                        placeholder="e.g. Blue Ocean Seafood" type="text" />
+                    <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">error</span> This field is required
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">City</label>
+                        <input
+                            class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                            placeholder="e.g. Chicago" type="text" />
+                        <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">error</span> Required
+                        </p>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Capacity</label>
+                        <div class="relative">
+                            <input
+                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                min="1" type="number" value="20" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Operations -->
+            <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">Operations</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Opening
+                            Hours</label>
+                        <div class="relative">
+                            <input
+                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                type="time" value="09:00" />
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Closing
+                            Hours</label>
+                        <div class="relative">
+                            <input
+                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                type="time" value="22:00" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Image Upload -->
+            <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">Branding &amp; Photos</h3>
+                <div
+                    class="group cursor-pointer relative border-2 border-dashed border-[#d1d5db] dark:border-white/20 rounded-xl p-8 transition-colors hover:border-primary bg-[#fcfcfc] dark:bg-white/5 text-center">
+                    <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" type="file" />
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
+                            <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                        </div>
+                        <p class="text-sm font-semibold text-[#111518] dark:text-white font-display">Drag and drop your
+                            logo or venue photo</p>
+                        <p class="text-xs text-[#617989] mt-1">PNG, JPG or WEBP up to 5MB</p>
+                    </div>
+                </div>
+                <!-- Placeholder Preview -->
+                <div
+                    class="flex items-center gap-4 p-3 rounded-lg bg-[#f6f7f8] dark:bg-white/5 border border-[#f0f3f4] dark:border-white/10">
+                    <div class="w-16 h-12 bg-center bg-cover rounded bg-[#d1d5db]"
+                        data-alt="Placeholder image preview for restaurant"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9BsZAoKzx29eAxwlWPB4rVkleSF97uQsn4r5r8hETZhmEldt12pTWj0qq9-tchyMbbSgtMb37dR7mwJCn9Dnr6fhlJDpbjbDmVpKNZsOuKDeOe2eX6EPrvGJ1JHz0Ro_f8hmOn5MTNY20L6M24E-ON3YWgWJQ7cvmZ15Y8R3QZOhEI3zpvajXJEnEpbrB0GBrcXAZwTgzzwY8cgdtjLaejlOObeyt1H7Wm7s1yKg57gVnBKZPqoD4iPSM8-P--b5VfHaoBBVpR9s')">
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs font-semibold text-[#111518] dark:text-white">venue-exterior-01.jpg</p>
+                        <p class="text-[10px] text-[#617989]">1.2 MB</p>
+                    </div>
+                    <button class="text-[#617989] hover:text-red-500">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Sticky Footer -->
+        <div
+            class="p-6 border-t border-[#f0f3f4] dark:border-white/10 bg-white dark:bg-background-dark flex items-center gap-3">
+            <button
+                class="flex-1 h-11 rounded-lg bg-[#f0f3f4] dark:bg-white/5 text-[#111518] dark:text-white text-sm font-bold font-display hover:bg-[#e2e8f0] transition-colors">
+                Cancel
+            </button>
+            <button
+                class="flex-[2] h-11 rounded-lg bg-primary text-white text-sm font-bold font-display hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                Save Restaurant
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
