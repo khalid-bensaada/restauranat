@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', [RestaurantController::class, 'index'])->name('restauranteus.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -18,8 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('restauranteur')->group(function(){
-    Route::get('/restauranteur', [RestaurantController::class,'create'])->name('Restauranteur.create');
+
+
+Route::middleware('restauranteurs')->group(function () {
+    Route::get('/restauranteurs', [RestaurantController::class, 'create'])->name('restauranteurs.create');
+    
 });
 
 

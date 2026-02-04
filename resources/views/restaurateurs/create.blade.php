@@ -70,8 +70,7 @@
                             Restaurateur Pro</h2>
                     </div>
                     <nav class="hidden md:flex items-center gap-9">
-                        <a class="text-[#111518] dark:text-slate-300 text-sm font-semibold leading-normal hover:text-primary transition-colors"
-                            href="#">Dashboard</a>
+                        
                         <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1"
                             href="#">Restaurants</a>
                         <a class="text-[#111518] dark:text-slate-300 text-sm font-semibold leading-normal hover:text-primary transition-colors"

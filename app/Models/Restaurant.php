@@ -3,9 +3,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class restaurant extends Model
+class Restaurant extends Model
 {
-    protected $resto = [
+    protected $fillable = [
         'name_restaurant',
         'city',
         'image_resto',

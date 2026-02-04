@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use  App\Models\restaurant;
 use Illuminate\Http\Request;
+use App\Models\Restaurant;
 
 class RestaurantController extends controller
 {
 
-
+    public function index()
+    {
+        $restaurant = Restaurant::latest()->get();
+        return view('index', ['restaurant' => $restaurant]);
+    }
     public function create()
     {
         $Restaurant = Restaurant::latest()->get();

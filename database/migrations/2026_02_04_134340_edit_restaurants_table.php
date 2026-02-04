@@ -11,14 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurants' , function (Blueprint $table) {
-            $table->id();
-            $table->string('name_restaurant');
-            $table->string('city');
-            $table->string('image_resto');
-            $table->integer('capacity');
-            $table->boolean('actif');
-            $table->string('oppen_hours');
+        Schema::table('restaurants', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -28,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('restaurants', function (Blueprint $table) {
+            //
+        });
     }
 };
