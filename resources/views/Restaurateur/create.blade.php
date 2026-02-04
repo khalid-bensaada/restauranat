@@ -412,7 +412,7 @@
                         </div>
 
                         <!-- formula -->
-                        <form method="POST" action="" class="">
+                        <form method="POST" action="{{ route('restauranteur.store') }}" class="">
                             <div
                                 class="fixed inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark slide-over-shadow z-50 flex flex-col h-full">
                                 <!-- Panel Header -->
@@ -433,11 +433,11 @@
                                     <div class="space-y-4">
                                         <div>
                                             <label
-                                                class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Restaurant
+                                                class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display" >Restaurant
                                                 Name</label>
                                             <input
                                                 class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                placeholder="e.g. Blue Ocean Seafood" type="text" />
+                                                placeholder="e.g. Blue Ocean Seafood" type="text" name="name_restaurant" />
                                             <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
                                                 <span class="material-symbols-outlined text-[14px]">error</span> This
                                                 field is required
@@ -449,7 +449,7 @@
                                                     class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">City</label>
                                                 <input
                                                     class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                    placeholder="e.g. Chicago" type="text" />
+                                                    placeholder="e.g. Chicago" type="text" name="city" />
                                                 <p
                                                     class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
                                                     <span class="material-symbols-outlined text-[14px]">error</span>
@@ -462,7 +462,7 @@
                                                 <div class="relative">
                                                     <input
                                                         class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                        min="1" type="number" value="20" />
+                                                        min="1" type="number" value="20" name="capacity" />
                                                 </div>
                                             </div>
                                         </div>
@@ -479,7 +479,7 @@
                                                 <div class="relative">
                                                     <input
                                                         class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                        type="time" value="09:00" />
+                                                        type="time" value="09:00" name="oppen_hours"/>
                                                 </div>
                                             </div>
                                             <div>
@@ -501,7 +501,7 @@
                                         <div
                                             class="group cursor-pointer relative border-2 border-dashed border-[#d1d5db] dark:border-white/20 rounded-xl p-8 transition-colors hover:border-primary bg-[#fcfcfc] dark:bg-white/5 text-center">
                                             <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                type="file" />
+                                                type="file" name="image_resto" />
                                             <div class="flex flex-col items-center">
                                                 <div
                                                     class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
