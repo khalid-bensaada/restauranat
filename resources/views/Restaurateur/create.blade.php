@@ -410,6 +410,143 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- formula -->
+                        <form method="POST" action="" class="">
+                            <div
+                                class="fixed inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark slide-over-shadow z-50 flex flex-col h-full">
+                                <!-- Panel Header -->
+                                <div
+                                    class="flex items-center justify-between p-6 border-b border-[#f0f3f4] dark:border-white/10">
+                                    <h2
+                                        class="text-[#111518] dark:text-white text-2xl font-black font-display tracking-tight">
+                                        Add New
+                                        Restaurant</h2>
+                                    <button
+                                        class="text-[#617989] hover:text-[#111518] dark:hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
+                                </div>
+                                <!-- Scrollable Form Body -->
+                                <div class="flex-1 overflow-y-auto p-6 space-y-8">
+                                    <!-- Restaurant Info -->
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Restaurant
+                                                Name</label>
+                                            <input
+                                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                placeholder="e.g. Blue Ocean Seafood" type="text" />
+                                            <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">error</span> This
+                                                field is required
+                                            </p>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">City</label>
+                                                <input
+                                                    class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                    placeholder="e.g. Chicago" type="text" />
+                                                <p
+                                                    class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[14px]">error</span>
+                                                    Required
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Capacity</label>
+                                                <div class="relative">
+                                                    <input
+                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                        min="1" type="number" value="20" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Operations -->
+                                    <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                                        <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
+                                            Operations</h3>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Opening
+                                                    Hours</label>
+                                                <div class="relative">
+                                                    <input
+                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                        type="time" value="09:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Closing
+                                                    Hours</label>
+                                                <div class="relative">
+                                                    <input
+                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                        type="time" value="22:00" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Image Upload -->
+                                    <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                                        <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
+                                            Branding &amp; Photos</h3>
+                                        <div
+                                            class="group cursor-pointer relative border-2 border-dashed border-[#d1d5db] dark:border-white/20 rounded-xl p-8 transition-colors hover:border-primary bg-[#fcfcfc] dark:bg-white/5 text-center">
+                                            <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                type="file" />
+                                            <div class="flex flex-col items-center">
+                                                <div
+                                                    class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
+                                                    <span
+                                                        class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                                                </div>
+                                                <p
+                                                    class="text-sm font-semibold text-[#111518] dark:text-white font-display">
+                                                    Drag and drop your
+                                                    logo or venue photo</p>
+                                                <p class="text-xs text-[#617989] mt-1">PNG, JPG or WEBP up to 5MB</p>
+                                            </div>
+                                        </div>
+                                        <!-- Placeholder Preview -->
+                                        <div
+                                            class="flex items-center gap-4 p-3 rounded-lg bg-[#f6f7f8] dark:bg-white/5 border border-[#f0f3f4] dark:border-white/10">
+                                            <div class="w-16 h-12 bg-center bg-cover rounded bg-[#d1d5db]"
+                                                data-alt="Placeholder image preview for restaurant"
+                                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9BsZAoKzx29eAxwlWPB4rVkleSF97uQsn4r5r8hETZhmEldt12pTWj0qq9-tchyMbbSgtMb37dR7mwJCn9Dnr6fhlJDpbjbDmVpKNZsOuKDeOe2eX6EPrvGJ1JHz0Ro_f8hmOn5MTNY20L6M24E-ON3YWgWJQ7cvmZ15Y8R3QZOhEI3zpvajXJEnEpbrB0GBrcXAZwTgzzwY8cgdtjLaejlOObeyt1H7Wm7s1yKg57gVnBKZPqoD4iPSM8-P--b5VfHaoBBVpR9s')">
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-xs font-semibold text-[#111518] dark:text-white">
+                                                    venue-exterior-01.jpg</p>
+                                                <p class="text-[10px] text-[#617989]">1.2 MB</p>
+                                            </div>
+                                            <button class="text-[#617989] hover:text-red-500">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sticky Footer -->
+                                <div
+                                    class="p-6 border-t border-[#f0f3f4] dark:border-white/10 bg-white dark:bg-background-dark flex items-center gap-3">
+                                    <button
+                                        class="flex-1 h-11 rounded-lg bg-[#f0f3f4] dark:bg-white/5 text-[#111518] dark:text-white text-sm font-bold font-display hover:bg-[#e2e8f0] transition-colors">
+                                        Cancel
+                                    </button>
+                                    <button
+                                        class="flex-[2] h-11 rounded-lg bg-primary text-white text-sm font-bold font-display hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                                        Save Restaurant
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </main>
