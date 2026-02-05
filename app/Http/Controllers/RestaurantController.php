@@ -73,22 +73,5 @@ class RestaurantController extends controller
         return view('restaurant.show', compact('restaurant'));
     }
 
-    public function indexx(Request $request)
-    {
-        $restos = Restaurant::query()
-
-            ->when($request->filled('ville'), function ($q) use ($request) {
-                $q->where('ville', 'like', '%' . $request->ville . '%');
-            })
-
-            ->when($request->filled('cuisine'), function ($q) use ($request) {
-                $q->where('cuisine', 'like', '%' . $request->cuisine . '%');
-            })
-
-            ->paginate($request->input('per_page', 10))
-
-            ->withQueryString();
-
-        return view('restaurants.index', compact('restos'));
-    }
+    
 }
