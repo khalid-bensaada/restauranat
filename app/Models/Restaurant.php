@@ -9,9 +9,12 @@ class Restaurant extends Model
         'name_restaurant',
         'city',
         'image_resto',
+        'cuisine',
         'capacity',
         'actif',
         'oppen_hours',
     ];
+
+    
 }
 ?>

@@ -67,11 +67,11 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <button
-                    class="px-5 py-2 text-sm font-bold border border-white/20 rounded-lg hover:bg-white/10 transition-all">Login</button>
-                <button
-                    class="px-5 py-2 text-sm font-bold bg-primary text-white rounded-lg hover:bg-blue-600 shadow-lg shadow-primary/20 transition-all">
-                    sign up</button>
+                <a href="{{ route('login') }}"
+                    class="px-5 py-2 text-sm font-bold border border-white/20 rounded-lg hover:bg-white/10 transition-all">Login</a>
+                <a href="{{ route('register') }}"
+                    class="px-5 py-2 text-sm font-bold bg-primary text-white rounded-lg hover:bg-blue-600 shadow-lg shadow-primary/20 transition-all">sign up
+            </a>
             </div>
         </div>
     </header>

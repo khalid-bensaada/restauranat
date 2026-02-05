@@ -25,6 +25,7 @@ class RestaurantController extends controller
             'name_restaurant' => 'required|string|max:255',
             'city'            => 'required|string|max:255',
             'image_resto'     => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:3048',
+            'cuisine'         => 'required|string|max:255',
             'capacity'        => 'required|string|max:255',
             'oppen_hours'     => 'required|date_format:H:i',
         ]);
@@ -36,16 +37,18 @@ class RestaurantController extends controller
             ->with('success', 'Recette créée avec succès');
     }
 
-    public function edit(Restaurant $restaurant) {
-        return view('restaurant.edit' , compact('restaurant'));
+    public function edit(Restaurant $restaurant)
+    {
+        return view('restaurant.edit', compact('restaurant'));
     }
 
-    public function update(Request $request , Restaurant $restaurant)
+    public function update(Request $request, Restaurant $restaurant)
     {
         $validation = $request->vaidate([
             'name_restaurant' => 'required|string|max:255',
             'city'            => 'required|string|max:255',
             'image_resto'     => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'cuisine'         => 'required|string|max:255',
             'capacity'        => 'required|string|max:255',
             'oppen_hours'     => 'required|date_format:H:i',
         ]);
@@ -68,5 +71,24 @@ class RestaurantController extends controller
     public function show(Restaurant $restaurant)
     {
         return view('restaurant.show', compact('restaurant'));
+    }
+
+    public function indexx(Request $request)
+    {
+        $restos = Restaurant::query()
+
+            ->when($request->filled('ville'), function ($q) use ($request) {
+                $q->where('ville', 'like', '%' . $request->ville . '%');
+            })
+
+            ->when($request->filled('cuisine'), function ($q) use ($request) {
+                $q->where('cuisine', 'like', '%' . $request->cuisine . '%');
+            })
+
+            ->paginate($request->input('per_page', 10))
+
+            ->withQueryString();
+
+        return view('restaurants.index', compact('restos'));
     }
 }

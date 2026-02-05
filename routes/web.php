@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [RestaurantController::class, 'index'])->name('restauranteus.index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,7 +19,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('restauranteurs')->group(function () {
     Route::get('/restauranteurs', [RestaurantController::class, 'create'])->name('restauranteurs.create');
-    
 });
 
 

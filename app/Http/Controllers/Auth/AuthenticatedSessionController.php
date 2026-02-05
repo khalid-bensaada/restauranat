@@ -30,14 +30,14 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user->role->name === 'restaurateur') {
-            return redirect()->route('restaurants.index');
+            return redirect()->route('restaurants.create');
         }
 
         if ($user->role->name === 'client') {
             return redirect()->route('client.dashboard');
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 
     public function destroy(Request $request): RedirectResponse
