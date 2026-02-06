@@ -70,11 +70,11 @@
                             Restaurateur Pro</h2>
                     </div>
                     <nav class="hidden md:flex items-center gap-9">
-                        
+
                         <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1"
                             href="#">Restaurants</a>
                         <a class="text-[#111518] dark:text-slate-300 text-sm font-semibold leading-normal hover:text-primary transition-colors"
-                            href="#">Analytics</a>
+                            href="">add Restaurant</a>
                         <a class="text-[#111518] dark:text-slate-300 text-sm font-semibold leading-normal hover:text-primary transition-colors"
                             href="#">Staff</a>
                     </nav>
@@ -110,7 +110,8 @@
                                 portfolio of 12 active locations.</p>
                         </div>
                         <button
-                            class="flex min-w-[140px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-all shadow-md">
+                            class="flex min-w-[140px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-all shadow-md"
+                            id="open-form-btn">
                             <span class="material-symbols-outlined text-sm">add</span>
                             <span class="truncate">Add Restaurant</span>
                         </button>
@@ -184,373 +185,287 @@
                                 </div>
                             </div>
                         </div>
+                        @foreach($Restaurant as $restaurant)
+
+                            <div
+                                class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+                                <div class="relative w-full aspect-video">
+
+                                    <!-- IMAGE -->
+                                    <div class="w-full h-full bg-center bg-no-repeat bg-cover"
+                                        style="background-image: url('{{ asset('storage/' . $restaurant->image_resto) }}');">
+                                    </div>
+
+                                    <!-- STATUS -->
+                                    <div
+                                        class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                                        Active
+                                    </div>
+
+                                    <!-- ACTION BUTTONS -->
+                                    <div
+                                        class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                                        <!-- EDIT -->
+                                        <button
+                                            class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+
+                                        <!-- DELETE -->
+                                        <form action="{{ route('restaurant.destroy', $restaurant->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col gap-2">
+
+                                    <!-- NAME -->
+                                    <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">
+                                        {{ $restaurant->name_restaurant }}
+                                    </h3>
+
+                                    <!-- CITY -->
+                                    <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
+                                        <span class="material-symbols-outlined text-sm">location_on</span>
+                                        <p class="text-sm font-medium">{{ $restaurant->city }}</p>
+                                    </div>
+
+                                    <!-- INFO -->
+                                    <div class="flex flex-col gap-1 mt-2">
+                                        <div
+                                            class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
+
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">groups</span>
+                                                <span>{{ $restaurant->capacity }} seats</span>
+                                            </div>
+
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">schedule</span>
+                                                <span>
+                                                    {{ \Carbon\Carbon::parse($restaurant->oppen_hours)->format('H:i') }}
+                                                    -
+                                                    {{ \Carbon\Carbon::parse($restaurant->closing_hours)->format('H:i') }}
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        @endforeach
+
                         <!-- Restaurant Card 2 -->
+
+
+                        <!-- formula -->
+
+
+                    </div>
+                </div>
+                <form method="POST" action="{{ route('restaurateurs.store') }} " id="restaurant-form" class="hidden">
+                    @csrf
+
+                    <div
+                        class="fixed inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark slide-over-shadow z-50 flex flex-col h-full">
+                        <!-- Panel Header -->
                         <div
-                            class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative w-full aspect-video">
-                                <div class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                    data-alt="Coastal dining view of Oceanic Grill"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbY4SkV1Z9g6e80SmBgz-L7W5Q2ovtdMiO2pMKvpqplyQSm31ZZfCBw0qx6RWSHkgwjzDjM0Yzq9OkoaHXk4SjHYwqzQotOPu81rtRBn3Lz4eOEw9ZlmsABy4hbXf7fMyOSrjw-WO2amkim4qJBHT6dzzzN7mg40J3dyuUeBtIvKCYsMejbwrYAIraL8faMxBkLYB9GSHcTxYKfp7qz1Tkw3YkbkA7GHla931_KDpTmbkEAZObY7MkJ9Hys7Bgafp7QGtv-IuYMEo");'>
-                                </div>
-                                <div
-                                    class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                                    Active</div>
-                                <div
-                                    class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button
-                                        class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button
-                                        class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-5 flex flex-col gap-2">
-                                <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">Oceanic Grill
-                                </h3>
-                                <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <p class="text-sm font-medium">Miami, FL</p>
-                                </div>
-                                <div class="flex flex-col gap-1 mt-2">
-                                    <div
-                                        class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">groups</span>
-                                            <span>85 seats</span>
-                                        </div>
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>11:30 AM - 10:00 PM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            class="flex items-center justify-between p-6 border-b border-[#f0f3f4] dark:border-white/10">
+                            <h2 class="text-[#111518] dark:text-white text-2xl font-black font-display tracking-tight">
+                                Add New Restaurant
+                            </h2>
+                            <button type="button"
+                                class="text-[#617989] hover:text-[#111518] dark:hover:text-white transition-colors"
+                                id="close-form-btn">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+
                         </div>
-                        <!-- Restaurant Card 3 -->
-                        <div
-                            class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative w-full aspect-video">
-                                <div class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                    data-alt="Urban modern interior of Urban Spice"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtbMNi649-sW6lADcvj0ubahTFenul64FHkvDFjt5Hj6JTc7G4lsMoOVb3cbwvl9dug4g8Rl2KCdAN6_Qw05ZsXSkg9MseW-BNXiYbNiLTGraYmkxVgEDPDETOkBseGO8y5HxIZf0-TfBoe83ZAbcw_pvGceXPOIYFo_yVT87BO4d25aEItZ_2Dd-QYWJEbLdKVsGgPA3_ZSKPLNcM9oa2AsBSmWx3IyJLkJPTJNh_KBuNda14s1EqkYUoJ9GT5iVSOrOw_GBSWWA");'>
+
+                        <!-- Scrollable Form Body -->
+                        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+                            <!-- Restaurant Info -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label
+                                        class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                        Restaurant Name
+                                    </label>
+                                    <input
+                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                        placeholder="e.g. Blue Ocean Seafood" type="text" name="name_restaurant" />
+                                    <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">error</span> This
+                                        field is required
+                                    </p>
                                 </div>
-                                <div
-                                    class="absolute top-3 right-3 bg-yellow-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                                    Inactive</div>
-                                <div
-                                    class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button
-                                        class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button
-                                        class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
+
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div>
+                                        <label
+                                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                            City
+                                        </label>
+                                        <input
+                                            class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                            placeholder="e.g. Chicago" type="text" name="city" />
+                                        <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">error</span>
+                                            Required
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                            Cuisine
+                                        </label>
+                                        <input
+                                            class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                            placeholder="e.g. Italian, Seafood" type="text" name="cuisine" />
+                                        <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">error</span>
+                                            Required
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                            Capacity
+                                        </label>
+                                        <div class="relative">
+                                            <input
+                                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                min="1" type="number" value="20" name="capacity" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-5 flex flex-col gap-2">
-                                <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">Urban Spice
+
+                            <!-- Operations -->
+                            <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                                <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
+                                    Operations
                                 </h3>
-                                <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <p class="text-sm font-medium">Chicago, IL</p>
-                                </div>
-                                <div class="flex flex-col gap-1 mt-2">
-                                    <div
-                                        class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">groups</span>
-                                            <span>150 seats</span>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label
+                                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                            Opening Hours
+                                        </label>
+                                        <div class="relative">
+                                            <input
+                                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                type="time" value="09:00" name="oppen_hours" />
                                         </div>
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>09:00 AM - 12:00 AM</span>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">
+                                            Closing Hours
+                                        </label>
+                                        <div class="relative">
+                                            <input
+                                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
+                                                type="time" value="22:00" name="closing_hours" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Restaurant Card 4 -->
-                        <div
-                            class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative w-full aspect-video">
-                                <div class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                    data-alt="Rustic cozy lodge restaurant Mountain Retreat"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAQG4Y4YBaL-OiB71b2Mpo9QTh13bR4LyXE8e-7w3vivNunvWw0xUxb9z4AG-HOTa42Xtw8bSAf4F6REQHvg9uJSOSevwDj2vD8anBwtat7SVWZDXNKQDru586PfIZounjrm-PzaHbMk512WdWupX1Zn6S6_zovgEtlQbdRSmVfQVCgwf044ki7WX9lhAdo3588JE1DLTsW3S78HSiAiTxMdAtUaONKx_CCUhhXBUvkPDLQhpFB6_gltYgw27Rnay8WLaJg75JvHBU");'>
-                                </div>
-                                <div
-                                    class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                                    Active</div>
-                                <div
-                                    class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button
-                                        class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button
-                                        class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-5 flex flex-col gap-2">
-                                <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">Mountain
-                                    Retreat</h3>
-                                <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <p class="text-sm font-medium">Denver, CO</p>
-                                </div>
-                                <div class="flex flex-col gap-1 mt-2">
-                                    <div
-                                        class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">groups</span>
-                                            <span>60 seats</span>
-                                        </div>
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>08:00 AM - 09:00 PM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 5 (Repeated for Grid Density) -->
-                        <div
-                            class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative w-full aspect-video">
-                                <div class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                    data-alt="Modern upscale steakhouse interior"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaapeEdTYBi6hOO6YjiTbD6drh7-UiBMMnvKV0ukEZUp_yDWPNyF-RIuFhO0F9ezZXr0GBlP7Z0MKLWMjUAsEMIkp_eFvfR-14-yszE89JQQLD86CwTFisvSiaKvYR9fU3bhHhA8oLViK59WpYwyVRlke7ZnZ4R22JDNbc5GGr19Cdh4N9ppZMTl_6kIpHMU3HtDaCBscqUJY5IlMBm1XyNFCSjFBBXkOSjjrX8exCPzVQxFnBUqTdOzrXNqOeFsLVjaLQpJj8K5w");'>
-                                </div>
-                                <div
-                                    class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                                    Active</div>
-                                <div
-                                    class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button
-                                        class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button
-                                        class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-5 flex flex-col gap-2">
-                                <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">The Prime Cut
+
+                            <!-- Image Upload -->
+                            <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
+                                <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
+                                    Branding &amp; Photos
                                 </h3>
-                                <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <p class="text-sm font-medium">Dallas, TX</p>
-                                </div>
-                                <div class="flex flex-col gap-1 mt-2">
-                                    <div
-                                        class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">groups</span>
-                                            <span>200 seats</span>
+                                <div
+                                    class="group cursor-pointer relative border-2 border-dashed border-[#d1d5db] dark:border-white/20 rounded-xl p-8 transition-colors hover:border-primary bg-[#fcfcfc] dark:bg-white/5 text-center">
+                                    <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" type="file"
+                                        name="image_resto" />
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
+                                            <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
                                         </div>
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>05:00 PM - 11:00 PM</span>
-                                        </div>
+                                        <p class="text-sm font-semibold text-[#111518] dark:text-white font-display">
+                                            Drag and drop your logo or venue photo
+                                        </p>
+                                        <p class="text-xs text-[#617989] mt-1">PNG, JPG or WEBP up to 5MB</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Card 6 (Repeated for Grid Density) -->
-                        <div
-                            class="restaurant-card group flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-[#dbe1e6] dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative w-full aspect-video">
-                                <div class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                    data-alt="Traditional sushi bar counter"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDLYnyxgfxqTW30Ru79K_UjzcO_BzhOao8oMqjOu2zcuY4PhNPVOHwiVA024xl4l7D5DwI3v2wskUe609RAZGhKA2g5pIZ9kClbyBn8AbliczzUkwOVgCrniUO_6jyzDd6jSZDCaEa2k7aBDqHUtaciDdRgiyzmLVjnaJ7NnAsDrNM3WvI0zxLFztf5vXa77w2uJTPM_RwADYTmFJhla464TbGEgcwICcQOHXGhVty5787K987BDUBv2XQuCZfVW1mTdXAzTrlrLV0");'>
-                                </div>
+
+                                <!-- Placeholder Preview -->
                                 <div
-                                    class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
-                                    Active</div>
-                                <div
-                                    class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button
-                                        class="bg-white text-[#111518] p-2 rounded-full hover:bg-primary hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button
-                                        class="bg-white text-red-600 p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-5 flex flex-col gap-2">
-                                <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">Sakura Sushi
-                                </h3>
-                                <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <p class="text-sm font-medium">San Francisco, CA</p>
-                                </div>
-                                <div class="flex flex-col gap-1 mt-2">
-                                    <div
-                                        class="flex items-center justify-between text-[#617989] dark:text-slate-400 text-xs font-semibold">
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">groups</span>
-                                            <span>45 seats</span>
-                                        </div>
-                                        <div class="flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>12:00 PM - 09:00 PM</span>
-                                        </div>
+                                    class="flex items-center gap-4 p-3 rounded-lg bg-[#f6f7f8] dark:bg-white/5 border border-[#f0f3f4] dark:border-white/10">
+                                    <div class="w-16 h-12 bg-center bg-cover rounded bg-[#d1d5db]"
+                                        data-alt="Placeholder image preview for restaurant"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9BsZAoKzx29eAxwlWPB4rVkleSF97uQsn4r5r8hETZhmEldt12pTWj0qq9-tchyMbbSgtMb37dR7mwJCn9Dnr6fhlJDpbjbDmVpKNZsOuKDeOe2eX6EPrvGJ1JHz0Ro_f8hmOn5MTNY20L6M24E-ON3YWgWJQ7cvmZ15Y8R3QZOhEI3zpvajXJEnEpbrB0GBrcXAZwTgzzwY8cgdtjLaejlOObeyt1H7Wm7s1yKg57gVnBKZPqoD4iPSM8-P--b5VfHaoBBVpR9s')">
                                     </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs font-semibold text-[#111518] dark:text-white">
+                                            venue-exterior-01.jpg</p>
+                                        <p class="text-[10px] text-[#617989]">1.2 MB</p>
+                                    </div>
+                                    <button class="text-[#617989] hover:text-red-500">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- formula -->
-                        <form method="POST" action="{{ route('restauranteur.store') }}" class="">
-                            <div
-                                class="fixed inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark slide-over-shadow z-50 flex flex-col h-full">
-                                <!-- Panel Header -->
-                                <div
-                                    class="flex items-center justify-between p-6 border-b border-[#f0f3f4] dark:border-white/10">
-                                    <h2
-                                        class="text-[#111518] dark:text-white text-2xl font-black font-display tracking-tight">
-                                        Add New
-                                        Restaurant</h2>
-                                    <button
-                                        class="text-[#617989] hover:text-[#111518] dark:hover:text-white transition-colors">
-                                        <span class="material-symbols-outlined">close</span>
-                                    </button>
-                                </div>
-                                <!-- Scrollable Form Body -->
-                                <div class="flex-1 overflow-y-auto p-6 space-y-8">
-                                    <!-- Restaurant Info -->
-                                    <div class="space-y-4">
-                                        <div>
-                                            <label
-                                                class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display" >Restaurant
-                                                Name</label>
-                                            <input
-                                                class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                placeholder="e.g. Blue Ocean Seafood" type="text" name="name_restaurant" />
-                                            <p class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]">error</span> This
-                                                field is required
-                                            </p>
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">City</label>
-                                                <input
-                                                    class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                    placeholder="e.g. Chicago" type="text" name="city" />
-                                                <p
-                                                    class="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1">
-                                                    <span class="material-symbols-outlined text-[14px]">error</span>
-                                                    Required
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Capacity</label>
-                                                <div class="relative">
-                                                    <input
-                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                        min="1" type="number" value="20" name="capacity" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Operations -->
-                                    <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
-                                        <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
-                                            Operations</h3>
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Opening
-                                                    Hours</label>
-                                                <div class="relative">
-                                                    <input
-                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                        type="time" value="09:00" name="oppen_hours"/>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-semibold text-[#111518] dark:text-white mb-1.5 font-display">Closing
-                                                    Hours</label>
-                                                <div class="relative">
-                                                    <input
-                                                        class="w-full rounded-lg border-[#d1d5db] dark:border-white/20 bg-white dark:bg-white/5 text-[#111518] dark:text-white focus:ring-primary focus:border-primary px-4 py-2.5 outline-none transition-all"
-                                                        type="time" value="22:00" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Image Upload -->
-                                    <div class="space-y-4 pt-4 border-t border-[#f0f3f4] dark:border-white/10">
-                                        <h3 class="text-[#111518] dark:text-white font-bold text-base font-display">
-                                            Branding &amp; Photos</h3>
-                                        <div
-                                            class="group cursor-pointer relative border-2 border-dashed border-[#d1d5db] dark:border-white/20 rounded-xl p-8 transition-colors hover:border-primary bg-[#fcfcfc] dark:bg-white/5 text-center">
-                                            <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                type="file" name="image_resto" />
-                                            <div class="flex flex-col items-center">
-                                                <div
-                                                    class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-3">
-                                                    <span
-                                                        class="material-symbols-outlined text-[28px]">cloud_upload</span>
-                                                </div>
-                                                <p
-                                                    class="text-sm font-semibold text-[#111518] dark:text-white font-display">
-                                                    Drag and drop your
-                                                    logo or venue photo</p>
-                                                <p class="text-xs text-[#617989] mt-1">PNG, JPG or WEBP up to 5MB</p>
-                                            </div>
-                                        </div>
-                                        <!-- Placeholder Preview -->
-                                        <div
-                                            class="flex items-center gap-4 p-3 rounded-lg bg-[#f6f7f8] dark:bg-white/5 border border-[#f0f3f4] dark:border-white/10">
-                                            <div class="w-16 h-12 bg-center bg-cover rounded bg-[#d1d5db]"
-                                                data-alt="Placeholder image preview for restaurant"
-                                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9BsZAoKzx29eAxwlWPB4rVkleSF97uQsn4r5r8hETZhmEldt12pTWj0qq9-tchyMbbSgtMb37dR7mwJCn9Dnr6fhlJDpbjbDmVpKNZsOuKDeOe2eX6EPrvGJ1JHz0Ro_f8hmOn5MTNY20L6M24E-ON3YWgWJQ7cvmZ15Y8R3QZOhEI3zpvajXJEnEpbrB0GBrcXAZwTgzzwY8cgdtjLaejlOObeyt1H7Wm7s1yKg57gVnBKZPqoD4iPSM8-P--b5VfHaoBBVpR9s')">
-                                            </div>
-                                            <div class="flex-1">
-                                                <p class="text-xs font-semibold text-[#111518] dark:text-white">
-                                                    venue-exterior-01.jpg</p>
-                                                <p class="text-[10px] text-[#617989]">1.2 MB</p>
-                                            </div>
-                                            <button class="text-[#617989] hover:text-red-500">
-                                                <span class="material-symbols-outlined text-[18px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Sticky Footer -->
-                                <div
-                                    class="p-6 border-t border-[#f0f3f4] dark:border-white/10 bg-white dark:bg-background-dark flex items-center gap-3">
-                                    <button
-                                        class="flex-1 h-11 rounded-lg bg-[#f0f3f4] dark:bg-white/5 text-[#111518] dark:text-white text-sm font-bold font-display hover:bg-[#e2e8f0] transition-colors">
-                                        Cancel
-                                    </button>
-                                    <button
-                                        class="flex-[2] h-11 rounded-lg bg-primary text-white text-sm font-bold font-display hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
-                                        Save Restaurant
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <!-- Sticky Footer -->
+                        <div
+                            class="p-6 border-t border-[#f0f3f4] dark:border-white/10 bg-white dark:bg-background-dark flex items-center gap-3">
+                            <button type="button"
+                                class="flex-1 h-11 rounded-lg bg-[#f0f3f4] dark:bg-white/5 text-[#111518] dark:text-white text-sm font-bold"
+                                id="cancel-btn">
+                                Cancel
+                            </button>
+
+                            <button
+                                class="flex-[2] h-11 rounded-lg bg-primary text-white text-sm font-bold font-display hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                                Save Restaurant
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </main>
         </div>
     </div>
+    <script>
+        const openBtn = document.getElementById('open-form-btn');
+        const closeBtn = document.getElementById('close-form-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const form = document.getElementById('restaurant-form');
+
+        // OPEN
+        openBtn.addEventListener('click', () => {
+            form.classList.remove('hidden');
+        });
+
+        // CLOSE
+        closeBtn.addEventListener('click', () => {
+            form.classList.add('hidden');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            form.classList.add('hidden');
+        });
+    </script>
+
 </body>
 
 </html>
