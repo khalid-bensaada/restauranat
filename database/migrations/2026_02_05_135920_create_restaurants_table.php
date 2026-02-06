@@ -12,8 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('city');
-            $table->integer('capacity');
             $table->string('cuisine');
+            $table->integer('capacity');
+            
             $table->string('open_hours');
             $table->string('image')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
