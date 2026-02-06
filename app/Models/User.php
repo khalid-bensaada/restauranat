@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Restaurant::class, 'user_favorites')
+            ->withTimestamps();
+    }
 }

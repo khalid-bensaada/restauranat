@@ -8,11 +8,14 @@ class Restaurant extends Model
     protected $fillable = [
         'name_restaurant',
         'city',
-        'image_resto',
         'cuisine',
         'capacity',
-        'actif',
         'oppen_hours',
+        'image_resto',
+        
+        
+        'actif',
+        
     ];
 
     
