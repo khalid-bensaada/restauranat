@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FavoriteController;
 
 
 Route::get('/', [RestaurantController::class, 'index'])->name('restauranteus.index');
@@ -17,9 +18,22 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('restauranteurs')->group(function () {
-    Route::get('/restauranteurs', [RestaurantController::class, 'create'])->name('restauranteurs.create');
-});
+Route::get('/restaurateurs/create', [RestaurantController::class, 'create'])
+    ->name('restaurateurs.create');
+
+Route::post('/restaurateurs', [RestaurantController::class, 'store'])
+    ->name('restaurateurs.store');
+
+
+Route::post('/favorites/{id}', [FavoriteController::class, 'toggle'])
+    ->middleware(['auth', 'client'])
+    ->name('favorites.toggle');
+
+Route::get(
+    '/restaurants/{restaurant}',
+    [RestaurantController::class, 'show']
+)
+    ->name('restaurants.show');
 
 
 require __DIR__ . '/auth.php';
