@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('restaurants', function (Blueprint $table) {
-            $table->time('close_hours')->nullable()->after('open_hours');
+            $table->string('close_hours')->nullable()->after('open_hours');
         });
     }
 
