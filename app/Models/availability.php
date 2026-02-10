@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Slot extends Model
+class availability extends Model
 {
     protected $fillable = [
         'start_time',
