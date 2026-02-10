@@ -11,20 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tables', function (Blueprint $table) {
-
+        Schema::create('slots', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('restaurant_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->string('name'); 
-
-            $table->unsignedInteger('capacity');
-
-            $table->boolean('is_active')->default(true);
-
+            $table->dateTime('start_time');
+            $table->integer('capacity');
+            $table->integer('booked_count')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('slots');
     }
 };
