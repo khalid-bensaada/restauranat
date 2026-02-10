@@ -25,7 +25,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'integer', 'exists:roles,id'],
+            'role_id' => ['required', 'integer', 'exists:roles,id'],
         ]);
 
 
@@ -35,10 +35,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $request->role,
+            'role_id' => $request->role_id,
         ]);
 
         event(new Registered($user));
+
+        Auth::login($user);
 
         return redirect()->route('login')->with('success', 'good');
     }

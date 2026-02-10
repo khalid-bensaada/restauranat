@@ -44,10 +44,10 @@
         <!-- Role Selection -->
         <div class="mt-4">
             <x-input-label for="role" :value="__('Register as')" />
-            <select id="role" name="role"
+            <select id="role" name="role_id"
                 class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="1" {{ old('role') == 'client' ? 'selected' : '' }}>Client</option>
-                <option value="2" {{ old('role') == 'restaurateur' ? 'selected' : '' }}>Restaurateur</option>
+                <option value="1" {{ old('role_id') == 'client' ? 'selected' : '' }}>Client</option>
+                <option value="2" {{ old('role_id') == 'restaurateur' ? 'selected' : '' }}>Restaurateur</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>

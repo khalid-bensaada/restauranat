@@ -10,10 +10,6 @@ class FavoriteController extends Controller
 {
     public function toggle($id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-
-        auth()->user()->favorites()->toggle($restaurant->id);
-
-        return back();
+        
     }
 }
