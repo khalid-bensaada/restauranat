@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slots', function (Blueprint $table) {
+        Schema::create('availability', function (Blueprint $table) {
             $table->id();
             $table->dateTime('start_time');
             $table->integer('capacity');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slots');
+        Schema::dropIfExists('availability');
     }
 };
