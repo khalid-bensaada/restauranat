@@ -131,99 +131,118 @@
                 </div>
             </div>
 
-            <div id="side-panel" class="hidden fixed inset-0 z-[60] overflow-hidden">
+            <div id="side-panel" class="hidden fixed inset-0 z-60 overflow-hidden">
+                <!-- Overlay -->
                 <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" id="panel-overlay"></div>
+
+                <!-- Form Container -->
                 <form action="{{ route('restaurateurs.store') }}" method="POST" enctype="multipart/form-data"
-                    class="absolute inset-y-0 right-0 w-full max-w-[480px] bg-white dark:bg-background-dark shadow-2xl flex flex-col translate-x-full transition-transform duration-300"
+                    class="absolute inset-y-0 right-0 w-full max-w-lg bg-white dark:bg-gray-900 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300"
                     id="form-container">
                     @csrf
 
-                    <div class="flex items-center justify-between p-6 border-b dark:border-white/10">
-                        <h2 class="text-2xl font-black text-[#111518] dark:text-white">Add New Restaurant</h2>
-                        <button type="button" id="close-form-btn" class="text-slate-500 hover:text-red-500">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between p-6 border-b dark:border-gray-700">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Restaurant</h2>
+                        <button type="button" id="close-form-btn" class="text-gray-500 hover:text-red-500">
                             <span class="material-symbols-outlined">close</span>
                         </button>
                     </div>
 
+                    <!-- Body -->
                     <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                        <!-- Restaurant Name -->
                         <div>
-                            <label class="block text-sm font-semibold mb-1.5 dark:text-white">Restaurant Name</label>
+                            <label class="block text-sm font-semibold mb-1 dark:text-white">Restaurant Name</label>
                             <input type="text" name="name" required
-                                class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white"
+                                class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3"
                                 placeholder="Blue Ocean Seafood">
                         </div>
 
+                        <!-- City, Cuisine, Capacity -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold mb-1.5 dark:text-white">City</label>
+                                <label class="block text-sm font-semibold mb-1 dark:text-white">City</label>
                                 <input type="text" name="city" required
-                                    class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white">
+                                    class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold mb-1.5 dark:text-white">Cuisine</label>
+                                <label class="block text-sm font-semibold mb-1 dark:text-white">Cuisine</label>
                                 <input type="text" name="cuisine" required
-                                    class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white"
+                                    class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3"
                                     placeholder="Italian">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold mb-1.5 dark:text-white">Capacity</label>
+                                <label class="block text-sm font-semibold mb-1 dark:text-white">Capacity</label>
                                 <input type="number" name="capacity" required
-                                    class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white">
+                                    class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3">
                             </div>
                         </div>
 
+                        <!-- Opening & Closing Time -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold mb-1.5 dark:text-white">Opening</label>
+                                <label class="block text-sm font-semibold mb-1 dark:text-white">Opening</label>
                                 <input type="time" name="open_hours" required
-                                    class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white">
+                                    class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold mb-1.5 dark:text-white">Closing</label>
+                                <label class="block text-sm font-semibold mb-1 dark:text-white">Closing</label>
                                 <input type="time" name="close_hours" required
-                                    class="w-full rounded-lg border-slate-300 dark:bg-white/5 dark:text-white">
+                                    class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-3">
                             </div>
                         </div>
 
+                        <!-- Photo Upload -->
                         <div>
-                            <label class="block text-sm font-semibold mb-1.5 dark:text-white">Photo</label>
+                            <label class="block text-sm font-semibold mb-2 dark:text-white">Photo</label>
                             <div
-                                class="border-2 border-dashed border-slate-300 dark:border-white/20 rounded-xl p-8 text-center bg-slate-50 dark:bg-white/5 relative hover:border-primary transition-colors">
-                                <input type="file" name="image" required
-                                    class="absolute inset-0 opacity-0 cursor-pointer">
-                                <span class="material-symbols-outlined text-primary text-4xl mb-2">cloud_upload</span>
-                                <p class="text-sm dark:text-white">Click or drag image here</p>
-                                <p class="text-xs text-slate-500">JPG, PNG up to 2MB</p>
+                                class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center bg-gray-50 dark:bg-gray-800 relative hover:border-blue-500 transition-colors cursor-pointer">
+                                <input type="file" name="image" class="absolute inset-0 opacity-0 cursor-pointer">
+                                <span class="material-symbols-outlined text-blue-500 text-4xl mb-2">cloud_upload</span>
+                                <p class="text-sm dark:text-gray-200">Click or drag image here</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">JPG, PNG up to 2MB</p>
                             </div>
+                        </div>
+
+                        <!-- Availability Form -->
+                        <div class="p-4 border rounded-lg dark:border-gray-700 space-y-4">
+                            <h3 class="text-lg font-semibold dark:text-white">Add Availability</h3>
+                            <form action="{{ route('availabilities.store', $restaurant->id) }}" method="POST"
+                                class="space-y-4">
+                                @csrf
+                                <div>
+                                    <label class="block text-sm font-semibold dark:text-white">Date</label>
+                                    <input type="date" name="date"
+                                        class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-2">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold dark:text-white">Start Time</label>
+                                    <input type="time" name="start_time"
+                                        class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-2">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold dark:text-white">Capacity</label>
+                                    <input type="number" name="capacity"
+                                        class="w-full rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white p-2">
+                                </div>
+                                <button type="submit"
+                                    class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-all">Add
+                                    Availability</button>
+                            </form>
                         </div>
                     </div>
-                    <form action="{{ route('availabilities.store', $restaurant->id) }}" method="POST" class="space-y-4">
-                        @csrf
-                        <div>
-                            <label class="block text-sm font-semibold">Date</label>
-                            <input type="date" name="date" class="w-full rounded-lg border p-2">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold">Start Time</label>
-                            <input type="time" name="start_time" class="w-full rounded-lg border p-2">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold">Capacity</label>
-                            <input type="number" name="capacity" class="w-full rounded-lg border p-2">
-                        </div>
-                        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg">Add
-                            Availability</button>
-                    </form>
 
-
-                    <div class="p-6 border-t dark:border-white/10">
+                    <!-- Footer -->
+                    <div class="p-6 border-t dark:border-gray-700">
                         <button type="submit"
-                            class="w-full bg-primary text-white font-bold h-12 rounded-lg hover:bg-primary/90 transition-all">
+                            class="w-full bg-blue-600 text-white font-bold h-12 rounded-lg hover:bg-blue-700 transition-all">
                             Save Restaurant
                         </button>
                     </div>
                 </form>
             </div>
+
         </main>
     </div>
 

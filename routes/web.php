@@ -33,7 +33,7 @@ Route::post('/favorites/{id}', [FavoriteController::class, 'toggle'])
 
 Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'store'])->name('restaurants.create');
 
-Route::get('/client', [RestaurantController::class, 'index'])->name('client.index');
+Route::get('/client', [RestaurantController::class, 'indexx'])->name('client.index');
 
 
 
