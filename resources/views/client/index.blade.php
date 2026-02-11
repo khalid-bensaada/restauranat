@@ -1,27 +1,36 @@
-<x-app-layout>
-    <div class="max-w-7xl mx-auto px-4 py-10">
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer les restaurants</title>
+    @vite('resources/css/app.css')
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="max-w-7xl mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold text-center mb-8">
             Explorer les restaurants
         </h1>
 
-        <form action="{{ route('client.explore') }}" method="GET" class="mb-10 flex justify-center gap-3">
+        <!-- Formulaire de recherche -->
+        <form action="{{ route('client.index') }}" method="GET" class="mb-10 flex justify-center gap-3">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Rechercher par ville (ex: Marrakech)"
                 class="w-full sm:w-1/2 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
-
             <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
                 Rechercher
             </button>
         </form>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            @forelse($Restaurant as $restaurant)
+        <!-- Liste des restaurants -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            @forelse($restaurants as $restaurant)
                 <div
                     class="bg-white border rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
-
-                    <img src="https://via.placeholder.com/400x200.png?text={{ urlencode($restaurant->nom) }}"
-                        alt="{{ $restaurant->nom }}" class="w-full h-44 object-cover">
-
+                    <img src="{{ $restaurant->image ? asset('storage/' . $restaurant->image) : 'https://via.placeholder.com/400x200.png?text=' . urlencode($restaurant->name) }}"
+                        alt="{{ $restaurant->name }}" class="w-full h-44 object-cover">
                     <div class="p-5 flex flex-col flex-1">
                         <div class="flex justify-between items-start mb-3">
                             <h2 class="text-xl font-bold text-gray-800">{{ $restaurant->name }}</h2>
@@ -53,7 +62,7 @@
                             <span class="text-sm">Ville : {{ $restaurant->city }}</span>
                         </div>
 
-                        <a href="#"
+                        <a href="{{ route('reservation.create', $restaurant->id) }}"
                             class="mt-auto w-full text-center bg-black text-white py-2.5 rounded-lg font-bold hover:bg-gray-800 transition">
                             Réserver une table
                         </a>
@@ -62,15 +71,18 @@
             @empty
                 <div class="col-span-full text-center py-20 bg-gray-50 rounded-xl">
                     <p class="text-gray-500 text-xl font-semibold">Désolé, aucun restaurant trouvé.</p>
-                    <a href="{{ route('explore') }}" class="text-green-600 underline mt-2 inline-block">Voir tous les
+                    <a href="{{ route('client.index') }}" class="text-green-600 underline mt-2 inline-block">Voir tous les
                         restaurants</a>
                 </div>
             @endforelse
         </div>
 
+        <!-- Pagination -->
         <div class="mt-12">
             {{ $restaurants->links() }}
         </div>
-
     </div>
-</x-app-layout>
+
+</body>
+
+</html>
