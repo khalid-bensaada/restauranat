@@ -8,11 +8,17 @@ use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $restaurants = Restaurant::latest()->get();
-        return view('index', compact('restaurants'));
+        $query = $request->input('q');
+
+        $restaurants = Restaurant::when($query, function ($q) use ($query) {
+            $q->where('city', 'like', "%{$query}%");
+        })->paginate(12);
+
+        return view('client.index', compact('restaurants'));
     }
+
 
     public function create(Request $request)
     {
@@ -101,4 +107,6 @@ class RestaurantController extends Controller
 
         return redirect()->back()->with('success', 'Deleted successfully');
     }
+
+   
 }

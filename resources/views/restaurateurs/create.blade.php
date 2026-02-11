@@ -105,7 +105,8 @@
 
                             <div class="p-5 flex flex-col gap-2">
                                 <h3 class="text-[#111518] dark:text-white text-lg font-bold leading-tight">
-                                    {{ $restaurant->name }}</h3>
+                                    {{ $restaurant->name }}
+                                </h3>
                                 <div class="flex items-center gap-1 text-[#617989] dark:text-slate-400">
                                     <span class="material-symbols-outlined text-sm">location_on</span>
                                     <p class="text-sm font-medium">{{ $restaurant->city }} • {{ $restaurant->cuisine }}</p>
@@ -196,6 +197,24 @@
                             </div>
                         </div>
                     </div>
+                    <form action="{{ route('availabilities.store', $restaurant->id) }}" method="POST" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label class="block text-sm font-semibold">Date</label>
+                            <input type="date" name="date" class="w-full rounded-lg border p-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold">Start Time</label>
+                            <input type="time" name="start_time" class="w-full rounded-lg border p-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold">Capacity</label>
+                            <input type="number" name="capacity" class="w-full rounded-lg border p-2">
+                        </div>
+                        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg">Add
+                            Availability</button>
+                    </form>
+
 
                     <div class="p-6 border-t dark:border-white/10">
                         <button type="submit"

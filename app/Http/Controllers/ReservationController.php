@@ -16,15 +16,15 @@ class ReservationController extends Controller
             'prsn_number'     => 'required|integer|min:1',
         ]);
 
-        
+
         $availability = Availability::findOrFail($validated['availability_id']);
 
-         
+
         if ($availability->capacity < $validated['prsn_number']) {
             return back()->with('error', 'Not enough seats available.');
         }
 
-        
+
         $reservation = Reservation::create([
             'user_id'          => Auth::id(),
             'restaurant_id'    => $availability->restaurant_id,
@@ -34,21 +34,34 @@ class ReservationController extends Controller
             'status'           => 'pending',
         ]);
 
-        
+
         $availability->decrement('capacity', $validated['prsn_number']);
 
-        return redirect()->route('home')
+        return redirect()->route('client.index')
             ->with('success', 'Reservation created successfully!');
     }
+    public function create($restaurantId)
+    {
+        $restaurant = \App\Models\Restaurant::findOrFail($restaurantId);
+
+        $availabilities = \App\Models\Availability::where('restaurant_id', $restaurantId)
+            ->where('date', '>=', now()->format('Y-m-d'))
+            ->orderBy('date')
+            ->orderBy('start_time')
+            ->get();
+
+        return view('client.reservation', compact('restaurant', 'availabilities'));
+    }
+
 
     public function cancel(Reservation $reservation)
     {
-        
+
         if ($reservation->user_id !== Auth::id()) {
             abort(403);
         }
 
-        
+
         $availability = Availability::where('restaurant_id', $reservation->restaurant_id)
             ->where('date', $reservation->reservation_day)
             ->where('start_time', $reservation->reservation_time)
@@ -58,12 +71,12 @@ class ReservationController extends Controller
             $availability->increment('capacity', $reservation->prsn_number);
         }
 
-        
+
         $reservation->update([
             'status' => 'cancelled'
         ]);
 
-        return redirect()->route('home')
+        return redirect()->route('client.index')
             ->with('info', 'Reservation cancelled.');
     }
 }

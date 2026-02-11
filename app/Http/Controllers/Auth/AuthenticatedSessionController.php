@@ -20,25 +20,19 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-    
         $request->session()->regenerate();
 
         $user = Auth::user();
+        $role = strtolower($user->role?->name ?? '');
 
-        if ($user->role->name === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
-
-        if ($user->role->name === 'restaurateur') {
-            return redirect()->route('restaurateurs.create');
-        }
-
-        if ($user->role->name === 'client') {
-            return redirect()->route('client.dashboard');
-        }
-
-        return redirect()->route('logout');
+        return match ($role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'restaurateur' => redirect()->route('restaurateurs.create'),
+            'client' => redirect()->route('client.home'),
+            default => redirect()->route('logout'),
+        };
     }
+
 
     public function destroy(Request $request): RedirectResponse
     {
@@ -47,7 +41,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        
+
         return redirect('/');
     }
 }
