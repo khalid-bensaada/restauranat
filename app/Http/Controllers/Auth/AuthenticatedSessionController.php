@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
         return match ($role) {
             'admin' => redirect()->route('admin.dashboard'),
             'restaurateur' => redirect()->route('restaurateurs.create'),
-            'client' => redirect()->route('client.home'),
+            'client' => redirect()->route('client.index'),
             default => redirect()->route('logout'),
         };
     }

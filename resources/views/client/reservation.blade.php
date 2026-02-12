@@ -44,17 +44,19 @@
                         </div>
 
                         @if($availability->capacity > 0)
-                            <form action="{{ route('reservation.store') }}" method="POST" class="mt-auto">
+                            <form action="{{ route('payments.checkout', $availability->id) }}" method="GET" class="mt-auto">
                                 @csrf
                                 <input type="hidden" name="availability_id" value="{{ $availability->id }}">
                                 <label class="block mb-2 font-medium text-gray-700">Nombre de personnes :</label>
                                 <input type="number" name="prsn_number" value="1" min="1" max="{{ $availability->capacity }}"
                                     class="w-full border border-gray-300 rounded-lg p-2 mb-3 focus:ring-2 focus:ring-green-500 outline-none">
+
                                 <button type="submit"
-                                    class="w-full bg-green-600 text-white py-2 rounded-lg font-bold hover:bg-green-700 transition">
-                                    Réserver
+                                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition">
+                                    Payer avec Stripe
                                 </button>
                             </form>
+
                         @else
                             <button disabled class="w-full bg-gray-400 text-white py-2 rounded-lg font-bold cursor-not-allowed">
                                 Complet

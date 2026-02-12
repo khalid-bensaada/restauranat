@@ -6,6 +6,8 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AvailabilityController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+
 
 Route::get('/', [RestaurantController::class, 'index'])->name('restauranteus.index');
 
@@ -47,5 +49,14 @@ Route::post('/reservation', [ReservationController::class, 'store'])
 // routes/web.php
 Route::post('restaurateurs/{restaurant}/availabilities', [AvailabilityController::class, 'store'])
     ->name('availabilities.store');
+
+
+Route::get('/checkout/{reservation}', [PaymentController::class, 'checkout'])->name('payments.checkout');
+
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payments.success');
+
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payments.cancel');
+
+Route::post('/stripe/webhook', [PaymentController::class, 'webhook']);
 
 require __DIR__ . '/auth.php';
