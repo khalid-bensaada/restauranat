@@ -8,11 +8,12 @@ use App\Models\Reservation;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Stripe\Webhook;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
     /**
-     * Initiate Stripe Checkout
+     * Start Stripe Checkout
      */
     public function checkout($reservationId)
     {
@@ -26,32 +27,44 @@ class PaymentController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         
-        $payment = Payment::create([
-            'reservation_id' => $reservation->id,
-            'amount' => $reservation->total_price,
-            'currency' => 'MAD',
-            'payment_method' => 'stripe',
-            'status' => 'pending',
-        ]);
+        $payment = DB::transaction(function () use ($reservation) {
 
-    
+            return Payment::firstOrCreate(
+                [
+                    'reservation_id' => $reservation->id,
+                    'status' => 'pending',
+                ],
+                [
+                    'amount' => $reservation->total_price,
+                    'currency' => 'mad',
+                    'payment_method' => 'stripe',
+                ]
+            );
+        });
+
         $session = Session::create([
             'payment_method_types' => ['card'],
+
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'mad',
                     'product_data' => [
                         'name' => 'Reservation #' . $reservation->id,
                     ],
-                    'unit_amount' => $payment->amount * 100,
+                    
+                    'unit_amount' => (int) ($payment->amount * 100),
                 ],
                 'quantity' => 1,
             ]],
+
             'mode' => 'payment',
-            'success_url' => route('payments.success'),
+
+            
+            'success_url' => route('payments.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('payments.cancel'),
+
             'metadata' => [
-                'payment_id' => $payment->id
+                'payment_id' => $payment->id,
             ],
         ]);
 
@@ -59,56 +72,65 @@ class PaymentController extends Controller
     }
 
     /**
-     * Success page
+     * Just a UI page — NOT proof of payment
      */
-    public function success()
+    public function success(Request $request)
     {
-        return view('payments.success')
+        return view('payments.success');
     }
 
-    /**
-     * Cancel page
-     */
     public function cancel()
     {
         return view('payments.cancel');
     }
 
     /**
-     * Stripe Webhook to update payment status
+     * Stripe Webhook (REAL payment confirmation)
      */
     public function webhook(Request $request)
     {
-        $endpointSecret = env('STRIPE_WEBHOOK_SECRET');
+        $endpointSecret = config('services.stripe.webhook_secret');
 
         $payload = $request->getContent();
         $sigHeader = $request->header('Stripe-Signature');
 
         try {
-            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
+            $event = Webhook::constructEvent(
+                $payload,
+                $sigHeader,
+                $endpointSecret
+            );
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Invalid payload'], 400);
+            return response()->json(['error' => 'Invalid webhook'], 400);
         }
 
+        
         if ($event->type === 'checkout.session.completed') {
+
             $session = $event->data->object;
             $paymentId = $session->metadata->payment_id ?? null;
 
-            if ($paymentId) {
-                $payment = Payment::find($paymentId);
-
-                if ($payment && $payment->status !== 'paid') {
-                    $payment->update([
-                        'status' => 'paid',
-                        'paid_at' => now(),
-                    ]);
-
-                
-                    $payment->reservation->update([
-                        'status' => 'confirmed'
-                    ]);
-                }
+            if (!$paymentId) {
+                return response()->json(['error' => 'Payment ID missing'], 400);
             }
+
+            DB::transaction(function () use ($paymentId) {
+
+                $payment = Payment::lockForUpdate()->find($paymentId);
+
+                if (!$payment || $payment->status === 'paid') {
+                    return;
+                }
+
+                $payment->update([
+                    'status' => 'paid',
+                    'paid_at' => now(),
+                ]);
+
+                $payment->reservation->update([
+                    'status' => 'confirmed',
+                ]);
+            });
         }
 
         return response()->json(['success' => true]);
