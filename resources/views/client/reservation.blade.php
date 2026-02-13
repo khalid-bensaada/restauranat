@@ -66,7 +66,7 @@
         @endif
 
         <div class="mt-8 text-center">
-            <a href="{{ route('client.index') }}" class="text-green-600 underline">Retour à la liste des restaurants</a>
+            <a href="{{ route('client.myreserve') }}" class="text-green-600 underline">Retour à la liste des restaurants</a>
         </div>
     </div>
 

@@ -58,4 +58,7 @@ Route::get('paypal/cancel', [App\Http\Controllers\PayPalController::class, 'canc
 Route::get('/mes-reservations', [ReservationController::class, 'myReservations'])
     ->name('client.myreserve')
     ->middleware('auth');
+
+Route::get('/client', [RestaurantController::class, 'toggle'])->name('client.favoris');
+Route::get('/client', [RestaurantController::class, 'myReservations'])->name('client.myreserve');
 require __DIR__ . '/auth.php';

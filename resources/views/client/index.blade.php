@@ -22,7 +22,8 @@
 
                 <!-- Links -->
                 <div class="flex items-center gap-6">
-                    <a href="{{ route('client.index') }}" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                    <a href="{{ route('client.index') }}"
+                        class="text-gray-700 hover:text-green-600 font-semibold transition">
                         Accueil
                     </a>
 
@@ -30,7 +31,8 @@
                         Favoris
                     </a>
 
-                    <a href="{{ route('client.myreserve') }}" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                    <a href="{{ route('client.myreserve') }}"
+                        class="text-gray-700 hover:text-green-600 font-semibold transition">
                         Mes réservations
                     </a>
 
@@ -65,7 +67,8 @@
                     <div class="p-5 flex flex-col flex-1">
                         <div class="flex justify-between items-start mb-3">
                             <h2 class="text-xl font-bold text-gray-800">{{ $restaurant->name }}</h2>
-
+                            <button class="focus:outline-none transform hover:scale-110 transition text-gray-300 text-2xl"
+                                title="Add to favorites">🤍</button>
                             @if(auth()->user()?->role === 'client')
                                 <form action="{{ route('favorite.toggle', $restaurant->id) }}" method="POST">
                                     @csrf
