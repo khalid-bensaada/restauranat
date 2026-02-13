@@ -79,4 +79,14 @@ class ReservationController extends Controller
         return redirect()->route('client.index')
             ->with('info', 'Reservation cancelled.');
     }
+    public function myReservations()
+    {
+        
+        $reservations = Reservation::with('restaurant')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->paginate(9);
+
+        return view('client.myreserve', compact('reservations'));
+    }
 }

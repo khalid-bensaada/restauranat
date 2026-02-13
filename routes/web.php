@@ -51,12 +51,11 @@ Route::post('restaurateurs/{restaurant}/availabilities', [AvailabilityController
     ->name('availabilities.store');
 
 
-Route::get('/checkout/{reservation}', [PaymentController::class, 'checkout'])->name('payments.checkout');
+Route::get('paypal/pay/{id}', [App\Http\Controllers\PayPalController::class, 'createPayment'])->name('paypal.pay');
+Route::get('paypal/success', [App\Http\Controllers\PayPalController::class, 'success'])->name('paypal.success');
+Route::get('paypal/cancel', [App\Http\Controllers\PayPalController::class, 'cancel'])->name('paypal.cancel');
 
-Route::get('/payment/success', [PaymentController::class, 'success'])->name('payments.success');
-
-Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payments.cancel');
-
-Route::post('/stripe/webhook', [PaymentController::class, 'webhook']);
-
+Route::get('/mes-reservations', [ReservationController::class, 'myReservations'])
+    ->name('client.myreserve')
+    ->middleware('auth');
 require __DIR__ . '/auth.php';

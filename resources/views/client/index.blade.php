@@ -10,6 +10,37 @@
 
 <body class="bg-gray-100">
 
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold text-green-600">
+                    RestoBook
+                </a>
+
+                <!-- Links -->
+                <div class="flex items-center gap-6">
+                    <a href="{{ route('client.index') }}" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                        Accueil
+                    </a>
+
+                    <a href="#" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                        Favoris
+                    </a>
+
+                    <a href="{{ route('client.myreserve') }}" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                        Mes réservations
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
     <div class="max-w-7xl mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold text-center mb-8">
             Explorer les restaurants
