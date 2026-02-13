@@ -16,7 +16,7 @@
             <div class="flex justify-between items-center h-16">
 
                 <!-- Logo -->
-                <a href="#" class="text-2xl font-bold text-green-600">
+                <a href="" class="text-2xl font-bold text-green-600">
                     RestoBook
                 </a>
 
@@ -27,7 +27,7 @@
                         Accueil
                     </a>
 
-                    <a href="#" class="text-gray-700 hover:text-green-600 font-semibold transition">
+                    <a href="{{ route('client.favoris') }}" class="text-gray-700 hover:text-green-600 font-semibold transition">
                         Favoris
                     </a>
 

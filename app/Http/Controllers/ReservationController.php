@@ -81,12 +81,22 @@ class ReservationController extends Controller
     }
     public function myReservations()
     {
-        
+
         $reservations = Reservation::with('restaurant')
             ->where('user_id', auth()->id())
             ->latest()
-            ->paginate(9);
+            ->get();
 
         return view('client.myreserve', compact('reservations'));
+    }
+
+    public function show(Reservation $reservation)
+    {
+        
+        if ($reservation->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('client.reservation_show', compact('reservation'));
     }
 }

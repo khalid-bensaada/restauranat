@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class FavoriteController extends Controller

@@ -48,27 +48,35 @@ class PayPalController extends Controller
 
     public function success(Request $request)
     {
-        $provider = new PayPalClient;
+        $orderID = $request->query('token');
+        if (!$orderID) {
+            return redirect()->route('client.myreserve')
+                ->with('error', 'PayPal order ID missing.');
+        }
+
+        $provider = new \Srmklive\PayPal\Services\PayPal;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
 
-        $response = $provider->capturePaymentOrder($request['token']);
+        $response = $provider->capturePaymentOrder($orderID);
 
-        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
 
-            $reserv = Reservation::Where('id', $request->reservation_id)
-                ->update([
-                    'status' => 1,
-                ]);
-
-            return redirect('/Reserved')->with('success', 'Payment Completed Successfully!');
-        } else {
-            return redirect('/Reserved')->with('success', 'Payment Failed!');
+            return view('payments.success', compact('response'));
         }
+
+        return view('payments.cancel', compact('response'));
     }
 
-    public function cancel()
+
+    public function cancel($id)
     {
-        return "Payment Cancelled!";
+        $reservation = Reservation::findOrFail($id);
+
+        $reservation->status = 'cancelled';
+        $reservation->save();
+
+        return redirect()->route('client.myreserve')
+            ->with('error', 'Reservation has been cancelled.');
     }
 }

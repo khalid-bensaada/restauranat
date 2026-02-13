@@ -6,7 +6,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AvailabilityController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PayPalController;
 
 
 Route::get('/', [RestaurantController::class, 'index'])->name('restauranteus.index');
@@ -59,6 +59,27 @@ Route::get('/mes-reservations', [ReservationController::class, 'myReservations']
     ->name('client.myreserve')
     ->middleware('auth');
 
-Route::get('/client', [RestaurantController::class, 'toggle'])->name('client.favoris');
-Route::get('/client', [RestaurantController::class, 'myReservations'])->name('client.myreserve');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/favoris', [FavoriteController::class, 'toggle'])->name('client.favoris');
+});
+
+
+Route::get('/reservation/{reservation}', [ReservationController::class, 'show'])
+    ->name('client.reservation.show')
+    ->middleware('auth');
+
+
+Route::post('/reservation/{reservation}', [ReservationController::class, 'cancel'])
+    ->name('client.reservation.cancel')
+    ->middleware('auth');
+
+Route::post('/reservation/{id}', [ReservationController::class, 'cancel'])
+    ->name('client.cancel');
+
+
+Route::get('/payments/success', [PayPalController::class, 'success'])
+    ->name('payments.success');
+
+Route::get('/payments/cancel/{id}', [PayPalController::class, 'cancel'])->name('payments.cancel');
+
 require __DIR__ . '/auth.php';
